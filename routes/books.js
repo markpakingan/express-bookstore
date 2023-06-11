@@ -3,6 +3,8 @@ const Book = require("../models/book");
 
 const router = new express.Router();
 
+// added this code below for testing
+// app.use(express.json());
 
 /** GET / => {books: [book, ...]}  */
 
@@ -10,6 +12,7 @@ router.get("/", async function (req, res, next) {
   try {
     const books = await Book.findAll(req.query);
     return res.json({ books });
+    
   } catch (err) {
     return next(err);
   }
