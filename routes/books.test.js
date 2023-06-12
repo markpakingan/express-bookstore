@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const BCRYPT_WORK_FACTOR =1;
-const Book = requre("..models/books");
+const Book = require("../models/book");
 
 let testBooks;
 
@@ -84,10 +84,15 @@ describe("PUT /books:isbn", ()=>{
 describe("DELETE /books:isbn", ()=>{
     test("Delete a single book", async()=>{
         const response = await request(app).delete(`/books/${testBooks}`)
+        expect (response.body).toBe({message: "Book Deleted"})
     });
-
-    expect (response.body).toBe({message: "Book Deleted"})
 })
+
+
+afterEach(async function () {
+    await db.query("DELETE FROM BOOKS");
+  });
+  
 
 afterAll(async function () {
     await db.end()
